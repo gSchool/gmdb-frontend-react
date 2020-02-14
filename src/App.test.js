@@ -27,3 +27,20 @@ test('network call to get movie data fails', async () => {
   )
   expect(errorMessage).toBeInTheDocument();
 })
+
+test('Harry Potter is the 1 movie in the array so Harry Potter is the one movie that will show up on the screen', async () => {
+  const movieTitle = 'Harry Potter';
+
+  axiosMock.get.mockResolvedValueOnce({
+    data: [{
+      "title": movieTitle
+    }]
+  })
+
+  const { getByText } = render(<App />); 
+  
+  const singleMovieOnScreen = await waitForElement(
+    () => getByText(movieTitle)
+  )
+  expect(singleMovieOnScreen).toBeInTheDocument();
+})

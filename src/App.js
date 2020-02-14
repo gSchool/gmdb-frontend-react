@@ -6,19 +6,20 @@ import {BASE} from './constants.js'
 
 function App() {
 
+  const [movies, setMovies] = useState([])
   const [responseStatus, setResponseStatus] = useState(200)
 
   useEffect(() => {
     axios.get(BASE)
       .then(response => {
-         console.log(response)
+         setMovies(response.data)
       })
       .catch(response => {
         setResponseStatus(response.status)
       })
     }, [])
     
-    return responseStatus === 200 ? <MovieList /> : <p>Whoops, something went wrong</p>;
+    return responseStatus === 200 ? <MovieList movies={movies} /> : <p>Whoops, something went wrong</p>;
 }
 
 export default App;
