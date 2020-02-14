@@ -6,8 +6,8 @@ MovieList (Presentational)
 
         inputs                          |               outputs
 N -     N/A                                     N/A
-Z -     empty array of movies passed in -> "no movies" message |        * no movies to display (search)
-O -     1 movie in array  -> render 1 movie card             |       <- same
+Z -     X empty array of movies passed in -> "no movies" message |        * no movies to display (search)
+O -     X 1 movie in array  -> render 1 movie card             |       <- same
 M -     array of movies passed in  -> render multiple movie cards    |       <- same
 B -     N/A                             |   N/A
 I -     N/A                             |   N/A
@@ -21,4 +21,4 @@ O -     1 movie in array  -> render MovieList w/movies array     |       <- same
 M -     array of movies passed in  -> render MovieList    |       <- same
 B -     N/A                             |   N/A
 I -     N/A                             |   N/A
-E -     network request for movies fails -> render ErrorBoundary "whoops something's wrong" | none
+E -    X network request for movies fails -> render ErrorBoundary "whoops something's wrong" | none

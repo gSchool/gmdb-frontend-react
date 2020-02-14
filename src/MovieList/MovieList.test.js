@@ -20,3 +20,10 @@ test('Lord of the Rings is the 1 movie in the array, so Lord of the Rings will b
     expect(movieTitleElement).toBeInTheDocument(); 
     expect(nonExistentMovieTitleElement).not.toBeInTheDocument();
 })
+
+test('message is displayed when no movies are present', () => {
+    const noMoviesMessage = "No movies found."
+    const { getByText } = render(<MovieList movies={[]} />);
+    const noMoviesMessageElement = getByText(noMoviesMessage);
+    expect(noMoviesMessageElement).toBeInTheDocument();
+})

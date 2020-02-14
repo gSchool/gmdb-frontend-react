@@ -3,8 +3,8 @@ import './MovieList.css';
 
 function MovieList({movies}) {
     return <>
-        <header>Movies</header>
-        {movies.length ?(<h3 className="movie">{movies[0].title}</h3>) : null}
+        <header data-testid="movie-header">Movies</header>
+        {movies.length ?(<h3 className="movie">{movies[0].title}</h3>) :(<p>No movies found.</p>)}
     </>;
 }
 
