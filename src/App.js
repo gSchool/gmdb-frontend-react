@@ -5,7 +5,7 @@ import {useMoviesFromDatabase} from './App.hooks'
 
 function App() {
 
-  let [{movies, error}, _] = useMoviesFromDatabase()
+  let {movies, error} = useMoviesFromDatabase()
 
 
     

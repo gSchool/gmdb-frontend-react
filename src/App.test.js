@@ -6,21 +6,7 @@ import {useMoviesFromDatabase} from './App.hooks'
 
 jest.mock('axios')
 
-function useCLosureToPreventStupidity(func) {
-  
-  return 
-}
-
-xdescribe("useMoviesFromDatabase", () => {
-  it('gets a list of movies from the database', () => {
-    const movies = ["Jeff is Awesome", "Tanner is kind of"]
-    axiosMock.mockResolvedValueOnce({data: movies})
-    ReactDOM.render()
-    const [{movies: dbMovies, error}] = useMoviesFromDatabase();
-
-    expect(movies).toEqual(dbMovies)
-  })
-})
+//TODO: figure out how to use act function to get rid of warning
 
 test('renders MovieList when there are no movies', () => {
   axiosMock.mockResolvedValueOnce({

@@ -4,9 +4,9 @@ import useFetch from './lib/network/fetch';
 export function useMoviesFromDatabase() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
-  const setMoviesAndResetError = ({data}) => {setMovies(data); setError(undefined); }
+  const setMoviesAndResetError = ({data}) => {setMovies(data); setError(null); }
 
   useFetch({}, setMoviesAndResetError, setError)
 
-  return [{movies, error}, () => {}]
+  return {movies, error}
 }
