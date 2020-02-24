@@ -1,25 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import MovieList from './MovieList';
-import axios from 'axios';
-import {BASE} from './constants.js'
+import {useMoviesFromDatabase} from './App.hooks'
 
 function App() {
 
-  const [movies, setMovies] = useState([])
-  const [responseStatus, setResponseStatus] = useState(200)
+  let [{movies, error}, _] = useMoviesFromDatabase()
 
-  useEffect(() => {
-    axios.get(BASE)
-      .then(response => {
-         setMovies(response.data)
-      })
-      .catch(response => {
-        setResponseStatus(response.status)
-      })
-    }, [])
+
     
-    return responseStatus === 200 ? <MovieList movies={movies} /> : <p>Whoops, something went wrong</p>;
+    // return <MovieList movies={movies} />
+    return !error ? <MovieList movies={movies} /> : <p>Whoops, something went wrong</p>;
 }
 
 export default App;

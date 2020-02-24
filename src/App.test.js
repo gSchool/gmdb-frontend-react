@@ -2,20 +2,37 @@ import React from 'react';
 import { render, waitForElement, cleanup } from '@testing-library/react';
 import axiosMock from 'axios';
 import App from './App';
+import {useMoviesFromDatabase} from './App.hooks'
 
 jest.mock('axios')
 
-test('renders MovieList when there are no movies', () => {
-  axiosMock.get.mockResolvedValueOnce({
-    data: []
+function useCLosureToPreventStupidity(func) {
+  
+  return 
+}
+
+xdescribe("useMoviesFromDatabase", () => {
+  it('gets a list of movies from the database', () => {
+    const movies = ["Jeff is Awesome", "Tanner is kind of"]
+    axiosMock.mockResolvedValueOnce({data: movies})
+    ReactDOM.render()
+    const [{movies: dbMovies, error}] = useMoviesFromDatabase();
+
+    expect(movies).toEqual(dbMovies)
   })
+})
+
+test('renders MovieList when there are no movies', () => {
+  axiosMock.mockResolvedValueOnce({
+    data: []
+  });
   const { getByTestId } = render(<App />);
   const movieListTitle = getByTestId('movie-header');
   expect(movieListTitle).toBeInTheDocument();
 });
 
 test('network call to get movie data fails', async () => {
-  axiosMock.get.mockRejectedValueOnce({
+  axiosMock.mockRejectedValueOnce({
     error: "idk",
     status: 500
   })
@@ -31,14 +48,14 @@ test('network call to get movie data fails', async () => {
 test('Harry Potter is the 1 movie in the array so Harry Potter is the one movie that will show up on the screen', async () => {
   const movieTitle = 'Harry Potter';
 
-  axiosMock.get.mockResolvedValueOnce({
+  axiosMock.mockResolvedValueOnce({
     data: [{
       "title": movieTitle
     }]
   })
 
-  const { getByText } = render(<App />); 
-  
+  const { debug, getByText, rerender } = render(<App />); 
+
   const singleMovieOnScreen = await waitForElement(
     () => getByText(movieTitle)
   )

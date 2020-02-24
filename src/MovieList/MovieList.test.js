@@ -13,7 +13,6 @@ test('Transformers is the 1 movie in the array, so Transformers will show up on 
 test('Lord of the Rings is the 1 movie in the array, so Lord of the Rings will be the ONLY movie to show up on the screen', () => {
     const movieTitle = "Lord of the Rings"
     const nonExistentMovieTitle = "Harry Potter"
-
     const { getByText, queryByText } = render(<MovieList movies={[{title: movieTitle}]} />); 
     const movieTitleElement = getByText(movieTitle); 
     const nonExistentMovieTitleElement = queryByText(nonExistentMovieTitle); 

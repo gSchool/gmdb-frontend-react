@@ -1,4 +1,1 @@
-module.exports = 
-{
-    BASE: "http://www.google.com/"
-}
+export const BASE = "http://www.google.com/";
