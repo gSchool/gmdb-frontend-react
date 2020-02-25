@@ -9,5 +9,5 @@ export default function useFetch(config = {}, onData, onError) {
   useEffect(
     () => 
     {axios({method, url: `${BASE}/${endpoint}`, data: body, headers}).then(onData).catch(onError)}
-  , [])
+  , [headers, body, endpoint, method])
 }

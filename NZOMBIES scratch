@@ -8,10 +8,10 @@ MovieList (Presentational)
 N -     N/A                                     N/A
 Z -     X empty array of movies passed in -> "no movies" message |        * no movies to display (search)
 O -     X 1 movie in array  -> render 1 movie card             |       <- same
-M -     array of movies passed in  -> render multiple movie cards    |       <- same
+M -     X array of movies passed in  -> render multiple movie cards    |       <- same
 B -     N/A                             |   N/A
 I -     N/A                             |   N/A
-E -     movie missing poster image data -> display w/placeholder | none
+E -     movie missing poster image data -> display w/placeholder | none // come back to this
 
 App (stateful)
 
@@ -22,3 +22,17 @@ M -     array of movies passed in  -> render MovieList    |       <- same
 B -     N/A                             |   N/A
 I -     N/A                             |   N/A
 E -    X network request for movies fails -> render ErrorBoundary "whoops something's wrong" | none
+
+
+search movies
+
+        inputs                                                   outputs
+N -     N/A                                                        N/A
+Z -     empty string = all movies                                  [] -> "No movies found"
+O -     one character = anything that contains that string         one movie displayed
+M -     multiple chars/words = anything that contains those        many movies displayed
+B -     N/A
+I -     N/A
+E -    check w/Rob - non-alphanumeric chars in search query? (see how his code handles that)
+        XSS attack (or something similar) (sanitize - check if it affects html or not for the test)
+S - 
