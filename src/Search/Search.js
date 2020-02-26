@@ -9,6 +9,7 @@ function Search({setSearchQuery = () => {}}) {
 
     const handleOnSubmit = event => {
         event.preventDefault();
+        event.stopPropagation();
         setSearchQuery(query);
         setQuery('');
     }
@@ -16,8 +17,8 @@ function Search({setSearchQuery = () => {}}) {
     return <form onSubmit={handleOnSubmit}>
         <label>Find movies</label>
         <input type="text" name="search-query" aria-label="search-input" value={query} onChange={handleInputChange} />
-        <button>Search</button>
-    </form>;
+        <input type="submit" value="Search" />
+    </form>
 }
 
 export default Search;

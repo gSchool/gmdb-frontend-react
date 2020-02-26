@@ -7,12 +7,12 @@ jest.mock('axios')
 
 //TODO: figure out how to use act function to get rid of warning
 
-test('renders MovieList when there are no movies', () => {
+test('renders MovieList when there are no movies', async () => {
   axiosMock.mockResolvedValueOnce({
     data: []
   });
   const { getByTestId } = render(<App />);
-  const movieListTitle = getByTestId('movie-header');
+  const movieListTitle = await waitForElement(() => getByTestId('movie-header'));
   expect(movieListTitle).toBeInTheDocument();
 });
 
@@ -35,6 +35,7 @@ test('Harry Potter is the 1 movie in the array so Harry Potter is the one movie 
 
   axiosMock.mockResolvedValueOnce({
     data: [{
+      "movieId": 2832,
       "title": movieTitle
     }]
   })
@@ -54,18 +55,18 @@ test('Searching for "How to Lose A Guy in 10 Days" filters the displayed movies 
   axiosMock.mockResolvedValueOnce({
     data: [
       {
-        "id": "db0542eb-f100-476b-ac63-fda81ce18514",
+        "movieId": 676,
         "title": otherMovieTitle
       },
       {
-        "id": "971869b4-cd2c-42f0-9004-5e5b7541be62",
+        "movieId": 97186,
         "title": movieTitle
       }]
   })
 
   axiosMock.mockResolvedValueOnce({
     data: [{
-      "id": "971869b4-cd2c-42f0-9004-5e5b7541be62",
+      "movieId": 455,
       "title": movieTitle
     }]
   })
@@ -88,9 +89,53 @@ test('Searching for "How to Lose A Guy in 10 Days" filters the displayed movies 
 
   fireEvent.click(searchButton);
 
-  await waitForElementToBeRemoved(() => queryByText(otherMovieTitle))
+  await waitForElementToBeRemoved(() => {
+    expect(bestMovie).toBeInTheDocument();
+    return queryByText(otherMovieTitle)
+  })
   // const singleMovieOnScreen = await waitForElement(
   //     () => getByText(movieTitle)
   // )
-  expect(bestMovie).toBeInTheDocument();
 })
+
+test('clicking on Indiana Jones in the movie list navigates to the movie details page', async () => {
+  const movie = {
+    movieId: 999,
+    imdbRating: "8.3",
+    imdbVotes: "1,104",
+    runtime: "151 min",
+    language: "English",
+    rated: "PG",
+    production: "20th Century Fox",
+    released: "21 Sep 1973",
+    imdbid: "tt00589759",
+    plot: "Indiana raids the temple",
+    director: "George Lucas",
+    title: "Indiana Jones and the Temple of Doom",
+    actors: "Harrison Ford, Matthew McConnoughey, Peter Dinklage",
+    awards: "Won 16 Oscars. Another 5 wins.",
+    year: "1973",
+    poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    genre: "Action, Adventure, Fantasy",
+    writer: "George Lucas"
+  }
+
+  axiosMock.mockResolvedValueOnce({
+    data: [movie]
+  })
+
+  const { getByText, getByTestId } = render(<App />);  
+
+  const singleMovieOnScreen = await waitForElement(
+    () => getByText(movie.title)
+  )
+  expect(singleMovieOnScreen).toBeInTheDocument();
+
+  fireEvent.click(singleMovieOnScreen);
+  
+  expect(getByTestId(`imdbVotes-${movie.movieId}`)).toBeInTheDocument();
+
+})
+
+
+//"home button" navigates back to movielist/home when clicked

@@ -36,3 +36,16 @@ I -     N/A
 E -    check w/Rob - non-alphanumeric chars in search query? (see how his code handles that)
         XSS attack (or something similar) (sanitize - check if it affects html or not for the test)
 S - 
+
+
+movie details 
+
+        INPUT                                          OUTPUT
+N - if the field is "null" or "N/A" or missing, then replace w/string "N/A"  BUT if it's image, replace w/standard image                                        n/a
+Z - ask rob: are all values required values for the various movie fields
+O -                                            one movie's details are displayed
+M - N/a
+B - 
+I - 
+E - 
+S - 

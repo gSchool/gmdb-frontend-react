@@ -51,3 +51,6 @@ test('All movie details are displayed for Star Wars Episode IV - A New Hope', ()
 
 
 })
+
+//"return to home" button shows up on moviedetails page when moviedetails is rendered
+
