@@ -8,6 +8,11 @@ export default function useFetch(config = {}, onData, onError) {
   const {headers, body, endpoint, method} = {...defaultConfig, ...config};
   useEffect(
     () => 
-    {axios({method, url: `${BASE}/${endpoint}`, data: body, headers}).then(onData).catch(onError)}
-  , [headers, body, endpoint, method])
+    {
+      axios({method, url: `${BASE}/${endpoint}`, data: body, headers})
+      .then(onData)
+      .catch(onError)
+    }
+    // eslint-disable-next-line
+    , [headers, body, endpoint, method])
 }

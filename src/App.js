@@ -1,9 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {NavigationContext, useNavigation} from './Navigation.utils';
 import HomeButton from './HomeButton';
 import Search from './Search';
 import {useMoviesFromDatabase} from './App.hooks'
+import UserHeader from './UserHeader'
 
 function App() {
 
@@ -19,9 +20,12 @@ function App() {
     }
 
   return (<>
-    <Search setSearchQuery={setSearchQuery}/>
+    <nav>
+      <Search setSearchQuery={setSearchQuery}/>
+        <UserHeader />
+    </nav>
     {!error ? (<NavigationContext.Provider value={{ dispatch, navigationState }}>
-      <HomeButton/>
+      <HomeButton />
       <navigationState.DisplayedComponent {...propsToPass} />
     </NavigationContext.Provider>)
      : <p>Whoops, something went wrong</p>}
